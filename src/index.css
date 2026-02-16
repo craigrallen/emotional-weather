@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #fdf6f0;
+  --card: #fff9f5;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: #3d3535;
+  min-height: 100dvh;
+}
+
+/* Weather animations */
+@keyframes rain {
+  0% { transform: translateY(-10px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(60px); opacity: 0; }
+}
+@keyframes storm-flash {
+  0%, 90%, 100% { opacity: 0; }
+  92%, 94% { opacity: 0.8; }
+}
+@keyframes float-cloud {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+@keyframes sun-pulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.08); filter: brightness(1.1); }
+}
+@keyframes rainbow-shimmer {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+@keyframes sun-rays {
+  0%, 100% { opacity: 0.4; transform: rotate(0deg); }
+  50% { opacity: 0.7; transform: rotate(15deg); }
+}
+
+.weather-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  transition: all 0.5s ease;
+}
+
+.weather-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: background 0.8s ease;
+}
+
+/* Rain drops */
+.rain-drop {
+  position: absolute;
+  width: 2px;
+  height: 12px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 2px;
+  animation: rain 0.8s linear infinite;
+}
+
+/* Storm flash */
+.storm-flash {
+  position: absolute;
+  inset: 0;
+  background: white;
+  animation: storm-flash 3s ease infinite;
+  pointer-events: none;
+}
+
+/* Cloud */
+.cloud-float {
+  animation: float-cloud 4s ease-in-out infinite;
+}
+
+/* Sun */
+.sun-glow {
+  animation: sun-pulse 3s ease-in-out infinite;
+}
+
+.sun-ray {
+  position: absolute;
+  width: 3px;
+  height: 16px;
+  background: rgba(255,200,50,0.3);
+  border-radius: 2px;
+  animation: sun-rays 2s ease-in-out infinite;
+  transform-origin: center 30px;
+}
+
+/* Rainbow */
+.rainbow-glow {
+  animation: rainbow-shimmer 4s linear infinite;
+}
+
+/* Heatmap */
+.heatmap-cell {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.heatmap-cell:hover {
+  transform: scale(1.3);
+}
+
+/* Nav */
+.nav-btn {
+  transition: all 0.2s;
+}
+.nav-btn.active {
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
