@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { Household } from './types';
 import { load } from './store';
 import { Setup } from './components/Setup';
@@ -8,16 +8,9 @@ import { History } from './components/History';
 type Tab = 'home' | 'history';
 
 export default function App() {
-  const [household, setHousehold] = useState<Household | null>(null);
+  const [household, setHousehold] = useState<Household | null>(() => load());
   const [tab, setTab] = useState<Tab>('home');
-  const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    setHousehold(load());
-    setLoaded(true);
-  }, []);
-
-  if (!loaded) return null;
   if (!household) return <Setup onComplete={setHousehold} />;
 
   const reset = () => {

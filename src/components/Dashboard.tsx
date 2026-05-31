@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { type Household, type Member, WEATHERS } from '../types';
+import { type Household, type Member, type WeatherState, WEATHERS } from '../types';
 import { WeatherAnimation } from './WeatherAnimation';
 import { WeatherPicker } from './WeatherPicker';
 import { setWeather, save, getNudges } from '../store';
@@ -13,7 +13,7 @@ export function Dashboard({ household, onChange }: Props) {
   const [picking, setPicking] = useState<Member | null>(null);
   const nudges = getNudges(household);
 
-  const handleSelect = (memberId: string, weather: any) => {
+  const handleSelect = (memberId: string, weather: WeatherState) => {
     const h = setWeather(household, memberId, weather);
     save(h);
     onChange(h);
