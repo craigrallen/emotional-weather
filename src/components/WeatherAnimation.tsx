@@ -5,6 +5,12 @@ interface Props {
   size?: 'sm' | 'lg';
 }
 
+const RAIN_DELAYS = [0.12, 0.58, 0.31, 0.74, 0.05, 0.46, 0.67, 0.22, 0.79, 0.39, 0.63, 0.15];
+
+function rainDelay(index: number) {
+  return `${RAIN_DELAYS[index % RAIN_DELAYS.length]}s`;
+}
+
 export function WeatherAnimation({ weather, size = 'sm' }: Props) {
   const info = WEATHERS.find(w => w.id === weather)!;
   const isLg = size === 'lg';
@@ -20,7 +26,7 @@ export function WeatherAnimation({ weather, size = 'sm' }: Props) {
             {Array.from({ length: 12 }).map((_, i) => (
               <div key={i} className="rain-drop" style={{
                 left: `${8 + i * 8}%`,
-                animationDelay: `${Math.random() * 0.8}s`,
+                animationDelay: rainDelay(i),
                 height: '14px',
               }} />
             ))}
@@ -32,7 +38,7 @@ export function WeatherAnimation({ weather, size = 'sm' }: Props) {
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="rain-drop" style={{
                 left: `${10 + i * 10}%`,
-                animationDelay: `${Math.random() * 0.8}s`,
+                animationDelay: rainDelay(i),
               }} />
             ))}
             <span className={isLg ? 'text-6xl' : 'text-4xl'}>{info.emoji}</span>
